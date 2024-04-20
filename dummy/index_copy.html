@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drowning Detection</title>
+    
+    <!-- Embedded CSS styles -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+        }
+
+        form {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="file"] {
+            margin-bottom: 20px;
+        }
+
+        #videoDisplay {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Drowning Detection</h1>
+    </header>
+    
+    <main>
+        <form method="POST" action="/predict_video" enctype="multipart/form-data">
+            <input type="file" name="video" accept="video/*" required>
+            <br>
+            <input type="submit" value="Detect Drowning">
+        </form>
+    </main>
+
+    <div id="videoDisplay" class="result">
+        <!-- Video frames will be displayed here -->
+    </div>
+
+    <!-- Include JavaScript code directly -->
+    <script>
+        const form = document.querySelector('form');
+        const videoDisplay = document.getElementById('videoDisplay');
+    
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+    
+            const formData = new FormData(form);
+            const response = await fetch('/predict_video', {
+                method: 'POST',
+                body: formData
+            });
+    
+            if (response.ok) {
+                const result = await response.json();
+                console.log('Response:', result);
+    
+                // Create video element for displaying processed frames
+                const videoElement = document.createElement('video');
+                videoElement.src = result.video_url;
+                videoElement.autoplay = true;
+                videoElement.controls = true;
+                videoDisplay.innerHTML = ''; // Clear previous video element
+                videoDisplay.appendChild(videoElement);
+    
+                // Pass video to detectDrowning function
+                detectDrowning(videoElement);
+            } else {
+                console.error('Error:', response.status, response.statusText);
+                videoDisplay.textContent = 'Error processing the video.';
+            }
+        });
+    
+        function detectDrowning(videoElement) {
+            // Your logic for using the video element in the detectDrowning function
+            // Example: You can use the videoElement to access video frames or perform additional processing
+            console.log('Video element passed to detectDrowning:', videoElement);
+    
+            // Example: Add an event listener to capture frame changes
+            videoElement.addEventListener('timeupdate', () => {
+                const currentTime = videoElement.currentTime;
+                console.log('Current video time:', currentTime);
+    
+                // You can use the current time for your drowning detection logic
+                // Example: Call a function or make an API request with the current time
+            });
+        }
+    </script>
+</body>
+</html>

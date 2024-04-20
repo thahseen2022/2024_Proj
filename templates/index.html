@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Demo</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/homepage.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <!-- Embedded CSS styles -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: D3D3D3;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        .upload-form {
+            flex: 1;
+            margin-right: 20px; /* Adjust spacing between elements */
+        }
+
+        #videoDisplay {
+            flex: 1;
+        }
+
+        /* Optional: Style the uploaded video */
+        #uploadedVideo {
+            width: 100%; /* Ensure the video fills its container */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+
+        form {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="file"] {
+            margin-bottom: 20px;
+        }
+
+        
+        #StopAlert {
+            background-color: #f44336;             color: white; /* White text color */
+            padding: 10px 20px; /* Padding around the text */
+            border: none; /* Remove the button border */
+            cursor: pointer; /* Add a pointer cursor on hover */
+        }
+    </style>
+</head>
+<body>
+    
+  <header>
+    <nav>
+      <div class="logo">
+        <img src="{{ url_for('static', filename='images/LOGO_RemoveBG.png') }}" alt="Logo">
+      </div>
+      <a href="{{ url_for('home') }}">Video Demo</a>
+      <a href="#about-us">About Us</a>
+      
+      <a href="login_2.html">Login</a>
+    </nav>
+  </header>
+
+
+    <main>
+        <div class="container">
+            <form method="POST" action="/upload" enctype="multipart/form-data" class="upload-form">
+                <input type="file" name="video" accept="video/*" required>
+                <br>
+                <input type="submit" value="Upload Video">
+            </form>
+        
+            <div id="videoDisplay" class="result">
+                <!-- Video will be displayed here -->
+                <video id="uploadedVideo" controls>
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+        
+    </main>
+
+    <script>
+        const form = document.querySelector('form');
+        const videoDisplay = document.getElementById('videoDisplay');
+        const uploadedVideo = document.getElementById('uploadedVideo');
+        const audioElement = new Audio('/static/sound/alarm.mp3');
+        let isDrowningDetected = false;
+    
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+    
+            const formData = new FormData(form);
+            const response = await fetch('/upload', {
+                method: 'POST',
+                body: formData
+            });       
+    
+            if (response.ok) {
+                const result = await response.json();
+                console.log('Response:', result.is_drowning);
+                //console.log("result.is_drowning:",result.is_drowning);
+                //console.log("result.Swimming status:",swimming_status);
+                const notif_response=result.is_drowning; 
+                console.log("notif_response:",notif_response);
+            
+                try {
+                uploadedVideo.src = result.video_url;
+                uploadedVideo.load();
+                uploadedVideo.play();
+            } catch (error) {
+                console.error('Error loading or playing video:', error);
+            }
+               
+
+
+               
+            if (notif_response==true) {
+                isDrowningDetected = true;
+                try{
+                    //audioElement = new Audio('/static/sound/alarm.mp3');
+                    
+                    audioElement.loop = true;
+                    audioElement.play();
+                    alert("Drowning detected in the video");    
+                }
+                catch(error){
+                    console.error('Error loading or playing audio:', error);
+                }
+                window.addEventListener('close', () => {
+                    alarmSound.pause();
+                    });
+            } else {
+                alert("No drowning detected in the video");
+            }
+                
+            
+            } else {
+                console.error('Error:', response.status, response.statusText);
+                videoDisplay.textContent = 'Error processing the video (INDEX.HTML)';
+            }
+
+        });
+       /* 
+        window.addEventListener('beforeunload', () => {
+            if (isDrowningDetected==true) {
+            audioElement.pause();
+        }
+    });
+*/
+    window.addEventListener('unload', () => {
+        if (isDrowningDetected) {
+            audioElement.pause();
+        }
+    });
+
+    function StopAlertBtn(){
+        console.log("Enter Alert Button");
+        audioElement.pause();
+
+        
+    }
+    </script>
+    
+    <center>
+        <button id="StopAlert" onclick="StopAlertBtn()" onclick=" audioElement.pause()">Alert Subdued</button>
+    </center>
+    
+    
+</body>
+
+
+</html>

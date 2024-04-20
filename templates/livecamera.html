@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deep Pool AI - Live camera</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/slides.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/homepage.css') }}">
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+</head>
+<body>
+  <div id="backgroundImage">
+    <img src="{{ url_for('static', filename='images/LOGO_RemoveBG.png') }}">
+  </div>
+
+  <header>
+    <nav>
+      <div class="logo">
+        <img src="{{ url_for('static', filename='images/LOGO_RemoveBG.png') }}" alt="Logo">
+      </div>
+      <a href="{{ url_for('home') }}">Video Demo</a>
+      <a href="#about-us">About Us</a>
+      
+      <a href="login_2.html">Login</a>
+    </nav>
+  </header>
+<div class="grid-container">
+  <div id="livecam_box" class="livecam_box">
+    <p p style="font-weight: bold; font-family: Consolas, monospace;">Camera 01</p> 
+      <img src="{{ url_for('static', filename='images/pool1.jpeg') }}" alt="Live 1">
+  </div>
+
+  
+  <div id="livecam_box" class="livecam_box">
+    <p p style="font-weight: bold; font-family: Consolas, monospace;">Camera 02</p>
+    <img src="{{ url_for('static', filename='images/pool2.jpg') }}" alt="Live 2">
+  </div>
+  
+  <div id="livecam_box" class="livecam_box">
+    <p p style="font-weight: bold; font-family: Consolas, monospace;">Camera 03</p>
+    <img src="{{ url_for('static', filename='images/pool3.jpg') }}" alt="Live 3">
+  </div>
+
+  
+  <div id="livecam_box" class="livecam_box">
+    <p p style="font-weight: bold; font-family: Consolas, monospace;">Camera 04</p>
+   <img src="{{ url_for('static', filename='images/pool4.jpeg') }}" alt="Live 4">
+  </div>
+</div>
+  <footer>
+  <h2>&copy; Deep Pool AI - AI based Lifeguard Assistance. All rights reserved.</h2>
+</footer>
+</body>
+</html>

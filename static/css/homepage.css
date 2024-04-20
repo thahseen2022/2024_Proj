@@ -1,0 +1,218 @@
+body {
+    margin: 0;
+    padding: 0;
+
+    background: linear-gradient(to bottom, #87CEEB, #064155); /* Sky blue to light blue gradient */
+
+    background-image: "{{ url_for('static', filename='images/LOGO_RemoveBG.png') }}";    
+    background-size: cover;
+    background-attachment: fixed;
+
+    
+    font-family: Arial, sans-serif;
+
+    overflow-x: hidden; 
+  }
+
+  #backgroundImage{
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  header {
+    color: white;
+    text-align: center;
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    
+    background: linear-gradient(to right, #ffffff, #0056b3);
+    padding: 5px 0;
+    text-align: right;
+    z-index: 1000;
+  }
+
+  .logo {
+    position: fixed;
+    left:5px;/* Maintain aspect ratio */
+    margin-right: 20px; /* Adjust the margin as needed */
+}
+
+.logo img {
+  width: auto;
+  height: 50px;
+}
+
+  nav a {
+    font-family: Arial,  sans-serif;
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    padding: 10px;
+    transition: all 0.3s ease-in-out;
+    background-color: transparent;
+    display: inline-block;
+  }
+
+  nav a:hover {
+    font-size: 1.1em;
+    border-bottom: 2px solid white;
+    padding-bottom: 8px;
+  }
+  
+
+  .gallery-container {
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    margin: 20px;
+    margin-top: 60px;
+  }
+
+  .slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .slide {
+    flex: 0 0 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Adjust the height of the slides as needed */
+  .slide img {
+    width: 100%;
+    height: auto;
+  }
+
+  body {
+    
+    font-family: Arial, sans-serif;
+  }
+  
+  p {
+    text-align: justify;
+  } 
+
+  .box-container {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+}
+
+.box {
+    flex: 1;
+    border: 1px solid #ccc;
+    border-width: 3px;
+    border-radius: 30px;
+    padding: 20px;
+    margin: 20px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.box:hover {
+    transform: scale(1.1);
+}
+  
+  
+  img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+  }
+  
+
+  .about-us {
+    position: relative;
+    padding: 20px;
+    color: black;
+    background-color: whitesmoke;
+    border: 1px solid #ccc; /* Optional border styling */
+    border-radius: 10px; /* Optional border radius styling */
+    margin: 45px;
+}
+
+img.rounded-image {
+  float: left;
+  margin: 10px;
+  border: 3px solid #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  width: 30%;
+  height: auto;
+}
+
+/* Clear the float to prevent subsequent elements from wrapping around */
+.clear-float {
+  clear: both;
+  }
+  
+  .about-us p{
+    text-align: left;
+  }
+  footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 3em;
+    width: 100%;
+  }
+
+  .contact-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .column {
+    text-align: left;
+    padding: 1em;
+  }
+
+  .column-left {
+    width: 30%;
+  }
+
+  .column-right {
+    width: 50%;
+  }
+
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns with equal width */
+    grid-gap: 2px; /* Spacing between grid items */
+}
+
+
+  .livecam_box {
+    padding: 20px;
+    color: black;
+    background-color: whitesmoke;
+    border: 1px solid #ccc; /* Optional border styling */
+    border-radius: 10px; /* Optional border radius styling */
+    margin: 45px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.livecam_box img{
+
+  width: 100%;
+  height: 350px;
+
+ }

@@ -1,0 +1,6 @@
+numpy
+progressbar
+requests
+pillow
+imageio
+imutils
